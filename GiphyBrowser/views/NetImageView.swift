@@ -12,6 +12,9 @@ class NetImageView: UIImageView {
 
     private var netHelper : NetHelper?
 
+
+    // MARK: -
+
     func setImage(fromURL url : URL, placeholder : UIImage? = nil) {
 
         self.netHelper = nil
@@ -34,9 +37,11 @@ class NetImageView: UIImageView {
     func cancelRequest() {
         self.netHelper = nil
     }
-
 }
 
+
+// MARK: -
+// MARK: -
 
 extension NetImageView {
     class NetHelper {

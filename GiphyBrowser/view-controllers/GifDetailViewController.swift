@@ -28,6 +28,9 @@ class GifDetailViewController: UIViewController {
         }
     }
 
+
+    // MARK: - View lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,6 +41,8 @@ class GifDetailViewController: UIViewController {
         }
     }
 
+
+    // MARK: -
 
     private func startPlayingGif(_ gif : GIFObject) {
         guard self.isViewLoaded else { return }

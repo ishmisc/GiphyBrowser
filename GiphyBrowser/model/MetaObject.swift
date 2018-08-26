@@ -15,6 +15,9 @@ struct MetaObject : Decodable {
     let responseID : String?
     var underlyingError : Error? = nil
 
+
+    // MARK: -
+
     init(status: Int, message: String?, responseID : String?, underlyingError : Error?) {
         self.status = status
         self.message = message
@@ -22,6 +25,8 @@ struct MetaObject : Decodable {
         self.underlyingError = underlyingError
     }
 
+    
+    // MARK: -
 
     enum CodingKeys: String, CodingKey
     {
@@ -31,6 +36,9 @@ struct MetaObject : Decodable {
     }
 }
 
+
+// MARK: -
+// MARK: -
 
 extension MetaObject {
     enum ErrorCodes {

@@ -9,6 +9,9 @@
 import Foundation
 
 
+// MARK: -
+// MARK: -
+
 class FileCache {
 
     let cacheDirURL : URL
@@ -45,6 +48,9 @@ class FileCache {
 }
 
 
+// MARK: -
+// MARK: -
+
 class GifFileCache : FileCache {
 
     static let cacheDir = URL.init(fileURLWithPath: DirLocations.cachesDir, isDirectory: true)
@@ -60,6 +66,9 @@ class GifFileCache : FileCache {
     }
 }
 
+
+// MARK: -
+// MARK: -
 
 enum DirLocations {
     static private(set) var cachesDir : String = {

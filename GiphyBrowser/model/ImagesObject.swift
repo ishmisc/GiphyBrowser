@@ -15,10 +15,15 @@ struct GiphyImage : Decodable {
     var height : String?
 
 
+    // MARK: -
+
     enum CodingKeys: String, CodingKey
     {
         case url, width, height
     }
+
+    
+    // MARK: -
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -29,12 +34,18 @@ struct GiphyImage : Decodable {
 }
 
 
+// MARK: -
+// MARK: -
+
 struct ImagesObject : Decodable {
     var fixedWidthStill : GiphyImage?
     var fixedHeightStill : GiphyImage?
     var fixedWidthDownsampled : GiphyImage?
     var fixedHeightDownsampled : GiphyImage?
     var original : GiphyImage?
+
+
+    // MARK: -
 
     enum CodingKeys: String, CodingKey
     {
@@ -45,6 +56,8 @@ struct ImagesObject : Decodable {
         case original
     }
 
+
+    // MARK: -
 
     func gifURL() -> URL {
         var finalUrl : URL

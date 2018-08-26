@@ -22,6 +22,8 @@ class BrowserViewController: UIViewController {
     var lastPageInfo : PaginationObject = PaginationObject(totalCount: 1000, count: 0, offset: 0)
 
 
+    // MARK: - View lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,6 +54,8 @@ class BrowserViewController: UIViewController {
     }
 
 
+    // MARK: -
+
     func loadMore() {
 
         let task = GIFFetcher.shared.fetchTrending(limit: 20, offset: self.gifs.count) { [weak self] (gifs, pag, meta) in
@@ -75,6 +79,8 @@ class BrowserViewController: UIViewController {
 }
 
 
+// MARK: - UICollectionViewDelegateFlowLayout
+
 extension BrowserViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let gif = self.gifs[indexPath.row]
@@ -95,6 +101,8 @@ extension BrowserViewController : UICollectionViewDelegateFlowLayout {
     }
 }
 
+
+// MARK: - UICollectionViewDataSource
 
 extension BrowserViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -11,17 +11,21 @@ import Foundation
 
 class GIFFetcher {
 
+    // MARK: -
     static let shared = GIFFetcher.init(withSessionConfiguration: .default)
 
+    // MARK: -
     private var session : URLSession
 
 
+    // MARK: - Object lifecycle
+
     init(withSessionConfiguration sConfig : URLSessionConfiguration) {
-
         self.session = URLSession.init(configuration: sConfig)
-
     }
 
+
+    // MARK: - Public fetch methods
 
     func fetchTrending(limit: Int,
                        offset: Int,
