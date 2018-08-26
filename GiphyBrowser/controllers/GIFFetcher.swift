@@ -45,8 +45,8 @@ class GIFFetcher {
 
         guard let finalURL = components.url else { return nil }
 
-        let task = self.session.dataTask(with: finalURL) { (data, response, error) in
-            if let data = data, error == nil {
+        let task = self.session.dataTask(with: finalURL) { (data, response, sError) in
+            if let data = data, sError == nil {
 
                 do {
                     let trendingResponse = try JSONDecoder().decode(TrendingResponse.self, from: data)
@@ -56,22 +56,33 @@ class GIFFetcher {
                 } catch let error {
                     print("Couldn't parse data:", error)
 
-                    var failedToParseError = MetaObject.createFailedToParse()
-                    failedToParseError.underlyingError = error
+                    var finalErrorMeta = MetaObject.createFailedToParse()
+                    finalErrorMeta.underlyingError = error
+
+                    // Unfortunately URLSession doesn't recogize 429 as error automatically
+                    // and tries to parse it as normal data.
+                    // This is why we need to plug this small check here.
+                    
+                    if (response as! HTTPURLResponse).statusCode == 429 {
+                        finalErrorMeta = MetaObject(status: 429,
+                                                    message: "API rate limit exceeded",
+                                                    responseID: nil,
+                                                    underlyingError: nil)
+                    }
 
                     DispatchQueue.main.async {
-                        completion(nil, nil, failedToParseError)
+                        completion(nil, nil, finalErrorMeta)
                     }
                 }
             } else {
-                if let error = error {
+                if let error = sError {
                     print(error)
                 } else {
                     print("Unkown error while loading songs for artist")
                 }
                 
                 var failedToLoadError = MetaObject.createFailedToLoad()
-                failedToLoadError.underlyingError = error
+                failedToLoadError.underlyingError = sError
 
                 DispatchQueue.main.async {
                     completion(nil, nil, failedToLoadError)
