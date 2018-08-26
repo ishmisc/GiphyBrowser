@@ -34,23 +34,15 @@ class BrowserViewController: UIViewController {
         self.backContainer.isHidden = false
         self.collectionContainer.isHidden = true
 
-        let task = GIFFetcher.shared.fetchTrending(limit: 100, offset: 0) { [weak self] (gifs, pag, meta) in
-            if  meta.status == 200,
-                let gifs = gifs,
-                let pagination = pag
-            {
-                self?.gifs = gifs
-                self?.collectionView.reloadData()
-                self?.lastPageInfo = pagination
-            } else {
-                // TODO: deal with error
-            }
-
+        self.fetchFirstBatch { [weak self] in
             self?.backContainer.isHidden = true
             self?.collectionContainer.isHidden = false
         }
 
-        task?.resume()
+        self.collectionView.refreshControl = UIRefreshControl.init()
+        self.collectionView.refreshControl?.addTarget(self,
+                                                      action: #selector(self.refetchFromHead(_:)),
+                                                      for: .valueChanged)
     }
 
 
@@ -67,7 +59,7 @@ class BrowserViewController: UIViewController {
                 self?.collectionView.reloadData()
                 self?.lastPageInfo = pagination
             } else {
-                // TODO: deal with error
+                self?.showUserError(withMeta: meta)
             }
 
             self?.backContainer.isHidden = true
@@ -75,6 +67,60 @@ class BrowserViewController: UIViewController {
         }
 
         task?.resume()
+    }
+
+
+    func fetchFirstBatch(completion: @escaping () -> Void) {
+        let task = GIFFetcher.shared.fetchTrending(limit: 100, offset: 0) { [weak self] (gifs, pag, meta) in
+            if  meta.status == 200,
+                let gifs = gifs,
+                let pagination = pag
+            {
+                self?.gifs = gifs
+                self?.collectionView.reloadData()
+                self?.lastPageInfo = pagination
+            } else {
+                self?.showUserError(withMeta: meta)
+            }
+
+            completion()
+        }
+
+        task?.resume()
+    }
+
+
+    @objc func refetchFromHead(_ sender : UIRefreshControl) {
+        self.lastPageInfo = PaginationObject(totalCount: 1000, count: 0, offset: 0)
+        self.fetchFirstBatch { [weak self] in
+            self?.backContainer.isHidden = true
+            self?.collectionContainer.isHidden = false
+            sender.endRefreshing()
+        }
+    }
+
+    // MARK: -
+
+    private func showUserError(withMeta meta : MetaObject) {
+
+        let errorTitle = "Error Happened"
+        var errorMessage = "Unexpected error happened. We are really sorry about that. Please try again later."
+
+        switch meta.status {
+        case 429:
+            errorMessage = "It seems we have hit the debug API rate limit. Please continue on the next day or change API_KEY"
+        case 404:
+            errorMessage = "It seems there is nothing here. Move along (please)."
+        default:
+            break
+        }
+
+        let errorAlert = UIAlertController.init(title: errorTitle,
+                                                message: errorMessage,
+                                                preferredStyle: .alert)
+        errorAlert.addAction(UIAlertAction.init(title: "OK :(", style: .default, handler: nil))
+
+        self.present(errorAlert, animated: true, completion: nil)
     }
 }
 
