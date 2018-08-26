@@ -19,6 +19,8 @@ class BrowserViewController: UIViewController {
 
     var gifs : [GIFObject] = []
 
+    var lastPageInfo : PaginationObject = PaginationObject(totalCount: 1000, count: 0, offset: 0)
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,16 +29,45 @@ class BrowserViewController: UIViewController {
                                      forCellWithReuseIdentifier: "Cell")
 
 
-        let task = GIFFetcher.shared.fetchTrending(limit: 100, offset: 0) { (gifs, pag, meta) in
+        self.backContainer.isHidden = false
+        self.collectionContainer.isHidden = true
+
+        let task = GIFFetcher.shared.fetchTrending(limit: 100, offset: 0) { [weak self] (gifs, pag, meta) in
             if  meta.status == 200,
                 let gifs = gifs,
                 let pagination = pag
             {
-                self.gifs = gifs
-                self.collectionView.reloadData()
+                self?.gifs = gifs
+                self?.collectionView.reloadData()
+                self?.lastPageInfo = pagination
             } else {
                 // TODO: deal with error
             }
+
+            self?.backContainer.isHidden = true
+            self?.collectionContainer.isHidden = false
+        }
+
+        task?.resume()
+    }
+
+
+    func loadMore() {
+
+        let task = GIFFetcher.shared.fetchTrending(limit: 20, offset: self.gifs.count) { [weak self] (gifs, pag, meta) in
+            if  meta.status == 200,
+                let gifs = gifs,
+                let pagination = pag
+            {
+                self?.gifs.append(contentsOf: gifs)
+                self?.collectionView.reloadData()
+                self?.lastPageInfo = pagination
+            } else {
+                // TODO: deal with error
+            }
+
+            self?.backContainer.isHidden = true
+            self?.collectionContainer.isHidden = false
         }
 
         task?.resume()
@@ -51,6 +82,16 @@ extension BrowserViewController : UICollectionViewDelegateFlowLayout {
         let detailVC = GifDetailViewController.init(nibName: "GifDetailViewController", bundle: nil)
         detailVC.gif = gif
         self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView,
+                        willDisplay cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath)
+    {
+        if indexPath.row + 1 == self.gifs.count && self.gifs.count < self.lastPageInfo.totalCount {
+            self.loadMore()
+        }
     }
 }
 
