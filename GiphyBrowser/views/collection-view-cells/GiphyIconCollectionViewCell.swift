@@ -10,12 +10,13 @@ import UIKit
 
 class GiphyIconCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var imageView: NetImageView!
     
 
     override func prepareForReuse() {
         super.prepareForReuse()
 
         self.imageView.image = nil
+        self.imageView.cancelRequest()
     }
 }

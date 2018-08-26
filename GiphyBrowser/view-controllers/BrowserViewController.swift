@@ -60,11 +60,7 @@ extension BrowserViewController : UICollectionViewDataSource {
 
         let gif = self.gifs[indexPath.row]
 
-        if let image = ImageMemCache.shared.image(forURL: gif.images.fixedWidthStill.url, completion: { [weak cell] (image, error) in
-            cell?.imageView.image = image
-        }) {
-            cell.imageView.image = image
-        }
+        cell.imageView.setImage(fromURL: gif.images.fixedWidthStill.url, placeholder: nil)
 
         return cell
     }

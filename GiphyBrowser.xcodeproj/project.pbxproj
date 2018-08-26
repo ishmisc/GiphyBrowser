@@ -23,6 +23,7 @@
 		D608A0B82132D6FC00DDD57D /* GiphyIconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608A0B62132D6FC00DDD57D /* GiphyIconCollectionViewCell.swift */; };
 		D608A0B92132D6FC00DDD57D /* GiphyIconCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D608A0B72132D6FC00DDD57D /* GiphyIconCollectionViewCell.xib */; };
 		D608A0BB2132EBB600DDD57D /* ImageMemCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608A0BA2132EBB600DDD57D /* ImageMemCache.swift */; };
+		D608A0C22133017900DDD57D /* NetImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608A0C12133017900DDD57D /* NetImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		D608A0B62132D6FC00DDD57D /* GiphyIconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphyIconCollectionViewCell.swift; sourceTree = "<group>"; };
 		D608A0B72132D6FC00DDD57D /* GiphyIconCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GiphyIconCollectionViewCell.xib; sourceTree = "<group>"; };
 		D608A0BA2132EBB600DDD57D /* ImageMemCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMemCache.swift; sourceTree = "<group>"; };
+		D608A0C12133017900DDD57D /* NetImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 		D608A09E2132B69500DDD57D /* views */ = {
 			isa = PBXGroup;
 			children = (
+				D608A0C12133017900DDD57D /* NetImageView.swift */,
 				D608A0B52132D6CC00DDD57D /* collection-view-cells */,
 			);
 			path = views;
@@ -217,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D608A0C22133017900DDD57D /* NetImageView.swift in Sources */,
 				D608A0A72132B75900DDD57D /* GiphyApiKey.swift in Sources */,
 				D608A0B02132BA2500DDD57D /* MetaObject.swift in Sources */,
 				D608A0A52132B70400DDD57D /* GiphyDefs.swift in Sources */,
