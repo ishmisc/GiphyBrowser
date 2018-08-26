@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="189" height="154"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k6T-2R-n6A" userLabel="imageview" customClass="NetImageView" customModule="GiphyBrowser" customModuleProvider="target">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-full-image" translatesAutoresizingMaskIntoConstraints="NO" id="k6T-2R-n6A" userLabel="imageview" customClass="NetImageView" customModule="GiphyBrowser" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="189" height="154"/>
                     </imageView>
                 </subviews>
@@ -38,4 +38,7 @@
             <point key="canvasLocation" x="73.5" y="6"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="icons8-full-image" width="64" height="64"/>
+    </resources>
 </document>

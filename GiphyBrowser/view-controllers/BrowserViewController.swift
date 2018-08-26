@@ -161,7 +161,7 @@ extension BrowserViewController : UICollectionViewDataSource {
 
         let gif = self.gifs[indexPath.row]
 
-        cell.imageView.setImage(fromURL: gif.images.thumbURL(), placeholder: nil)
+        cell.imageView.setImage(fromURL: gif.images.thumbURL(), placeholder: #imageLiteral(resourceName: "icons8-full-image"))
 
         return cell
     }
