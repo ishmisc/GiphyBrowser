@@ -107,7 +107,7 @@ extension BrowserViewController : UICollectionViewDataSource {
 
         let gif = self.gifs[indexPath.row]
 
-        cell.imageView.setImage(fromURL: gif.images.fixedWidthStill.url, placeholder: nil)
+        cell.imageView.setImage(fromURL: gif.images.thumbURL(), placeholder: nil)
 
         return cell
     }

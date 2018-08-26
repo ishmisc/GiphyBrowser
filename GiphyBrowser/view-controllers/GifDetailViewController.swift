@@ -47,7 +47,7 @@ class GifDetailViewController: UIViewController {
 
         self.imageContainer.isHidden = true
 
-        GifFileCache.shared.gifFileURL(forGif: gif, asMP4: false) { [weak self] (fileUrl, error) in
+        GifFileCache.shared.gifFileURL(forGif: gif) { [weak self] (fileUrl, error) in
             self?.imageContainer.isHidden = false
             self?.backContainer.isHidden = true
 

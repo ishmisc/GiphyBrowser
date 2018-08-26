@@ -50,7 +50,7 @@ class GIFFetcher {
                         completion(trendingResponse.data, trendingResponse.pagination, trendingResponse.meta)
                     }
                 } catch let error {
-                    print("Couldn't parse data: " + String.init(data: data, encoding: .utf8)! )
+                    print("Couldn't parse data:", error)
 
                     var failedToParseError = MetaObject.createFailedToParse()
                     failedToParseError.underlyingError = error
@@ -79,10 +79,8 @@ class GIFFetcher {
     }
 
 
-    func downloadGif(_ gif : GIFObject, asMP4 : Bool , toFileURL fileURL : URL, completion: @escaping (Error?) -> Void ) -> URLSessionDownloadTask {
-
-        let remoteURL = asMP4 ? gif.images.originalMP4.url : gif.images.fixedWidthDownsampled.url
-
+    func downloadGif(_ gif : GIFObject, toFileURL fileURL : URL, completion: @escaping (Error?) -> Void ) -> URLSessionDownloadTask {
+        let remoteURL = gif.images.gifURL()
         return self.downloadFile(downloadURL: remoteURL, toFileURL: fileURL, completion: completion)
     }
 

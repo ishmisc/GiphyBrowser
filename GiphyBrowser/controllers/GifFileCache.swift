@@ -51,9 +51,10 @@ class GifFileCache : FileCache {
 
     static let shared = GifFileCache.init(cacheDirURL: GifFileCache.cacheDir)
 
-    func gifFileURL(forGif gif : GIFObject, asMP4 : Bool, completion: @escaping (URL?, Error?) -> Void) {
-        let filename = gif.id + (asMP4 ? ".mp4" : ".gif")
-        let downloadURL = asMP4 ? gif.images.originalMP4.url : gif.images.fixedWidthDownsampled.url
+    func gifFileURL(forGif gif : GIFObject, completion: @escaping (URL?, Error?) -> Void) {
+
+        let filename = gif.id + ".gif"
+        let downloadURL = gif.images.gifURL()
 
         return self.fileURL(forFileWithName: filename, downloadURL: downloadURL, completion: completion)
     }
