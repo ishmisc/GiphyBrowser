@@ -12,4 +12,6 @@ enum GiphyDefs {
 
     static let APIKey = GiphyAPIKey
 
+    static let baseURL = URL(string: "https://api.giphy.com")!
+    static let APIVersion = "v1"
 }
