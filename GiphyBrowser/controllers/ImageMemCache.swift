@@ -12,15 +12,31 @@ import UIKit
 /// Should be used in Main thread only
 class ImageMemCache {
 
+    // MARK: -
     static let shared = ImageMemCache.init()
 
+    // MARK: -
     private var imageCache : [URL : UIImage] = [:]
-
     private var currentRequests : [URL : ImageRequest] = [:]
-
     private var session : URLSession = URLSession.init(configuration: .default)
 
 
+    // MARK: - Object lifecycle
+    init() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.memoryWarning(_:)),
+                                               name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning,
+                                               object: nil)
+    }
+
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+
+    // MARK: - main cache methods
+    
     func image(forURL url : URL,
                forceUpdate : Bool = false,
                completion: @escaping ImageRequestCompletion)
@@ -61,21 +77,35 @@ class ImageMemCache {
     }
 
 
-    func finishImageRequest(_ imRequest : ImageRequest, image : UIImage?, error : Error?) {
+    // MARK: - private
+
+    fileprivate func finishImageRequest(_ imRequest : ImageRequest, image : UIImage?, error : Error?) {
         if let image = image {
             self.imageCache[imRequest.url] = image
         }
 
         self.currentRequests[imRequest.url] = nil
     }
+
+
+    // MARK: - Memory warning
+
+    @objc private func memoryWarning(_ notification : Notification) {
+        DispatchQueue.main.async {
+            self.imageCache.removeAll()
+        }
+    }
 }
 
+
+// MARK: -
+// MARK: -
 
 extension ImageMemCache {
 
     typealias ImageRequestCompletion = ((UIImage?, Error?) -> Void)
 
-    class ImageRequest {
+    fileprivate class ImageRequest {
 
         unowned var imCache : ImageMemCache
 
