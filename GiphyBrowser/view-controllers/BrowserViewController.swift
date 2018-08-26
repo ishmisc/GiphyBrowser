@@ -27,7 +27,7 @@ class BrowserViewController: UIViewController {
                                      forCellWithReuseIdentifier: "Cell")
 
 
-        let task = GIFFetcher.shared.fetchTrending(limit: 20, offset: 0) { (gifs, pag, meta) in
+        let task = GIFFetcher.shared.fetchTrending(limit: 100, offset: 0) { (gifs, pag, meta) in
             if  meta.status == 200,
                 let gifs = gifs,
                 let pagination = pag
@@ -45,7 +45,13 @@ class BrowserViewController: UIViewController {
 
 
 extension BrowserViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let gif = self.gifs[indexPath.row]
 
+        let detailVC = GifDetailViewController.init(nibName: "GifDetailViewController", bundle: nil)
+        detailVC.gif = gif
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
 }
 
 

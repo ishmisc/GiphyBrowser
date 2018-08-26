@@ -24,6 +24,10 @@
 		D608A0B92132D6FC00DDD57D /* GiphyIconCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D608A0B72132D6FC00DDD57D /* GiphyIconCollectionViewCell.xib */; };
 		D608A0BB2132EBB600DDD57D /* ImageMemCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608A0BA2132EBB600DDD57D /* ImageMemCache.swift */; };
 		D608A0C22133017900DDD57D /* NetImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608A0C12133017900DDD57D /* NetImageView.swift */; };
+		D608A0C5213303E800DDD57D /* GifDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608A0C3213303E800DDD57D /* GifDetailViewController.swift */; };
+		D608A0C6213303E800DDD57D /* GifDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D608A0C4213303E800DDD57D /* GifDetailViewController.xib */; };
+		D608A0C8213314A300DDD57D /* GifFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D608A0C7213314A300DDD57D /* GifFileCache.swift */; };
+		D608A0CB21331BDB00DDD57D /* Gifu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D608A0CA21331BDB00DDD57D /* Gifu.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +50,10 @@
 		D608A0B72132D6FC00DDD57D /* GiphyIconCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GiphyIconCollectionViewCell.xib; sourceTree = "<group>"; };
 		D608A0BA2132EBB600DDD57D /* ImageMemCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMemCache.swift; sourceTree = "<group>"; };
 		D608A0C12133017900DDD57D /* NetImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetImageView.swift; sourceTree = "<group>"; };
+		D608A0C3213303E800DDD57D /* GifDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifDetailViewController.swift; sourceTree = "<group>"; };
+		D608A0C4213303E800DDD57D /* GifDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GifDetailViewController.xib; sourceTree = "<group>"; };
+		D608A0C7213314A300DDD57D /* GifFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifFileCache.swift; sourceTree = "<group>"; };
+		D608A0CA21331BDB00DDD57D /* Gifu.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gifu.framework; path = Carthage/Build/iOS/Gifu.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D608A0CB21331BDB00DDD57D /* Gifu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +73,7 @@
 			children = (
 				D608A0892132A8DA00DDD57D /* GiphyBrowser */,
 				D608A0882132A8DA00DDD57D /* Products */,
+				D608A0C921331BDB00DDD57D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,6 +106,8 @@
 			children = (
 				D608A09F2132B6B500DDD57D /* BrowserViewController.swift */,
 				D608A0A02132B6B500DDD57D /* BrowserViewController.xib */,
+				D608A0C3213303E800DDD57D /* GifDetailViewController.swift */,
+				D608A0C4213303E800DDD57D /* GifDetailViewController.xib */,
 			);
 			path = "view-controllers";
 			sourceTree = "<group>";
@@ -104,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				D608A0B12132BA5900DDD57D /* GIFFetcher.swift */,
+				D608A0C7213314A300DDD57D /* GifFileCache.swift */,
 				D608A0BA2132EBB600DDD57D /* ImageMemCache.swift */,
 			);
 			path = controllers;
@@ -148,6 +161,14 @@
 			path = "collection-view-cells";
 			sourceTree = "<group>";
 		};
+		D608A0C921331BDB00DDD57D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D608A0CA21331BDB00DDD57D /* Gifu.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -158,6 +179,7 @@
 				D608A0832132A8DA00DDD57D /* Sources */,
 				D608A0842132A8DA00DDD57D /* Frameworks */,
 				D608A0852132A8DA00DDD57D /* Resources */,
+				D608A0CC21331BF400DDD57D /* Run Script - Carthage copy libraries */,
 			);
 			buildRules = (
 			);
@@ -207,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D608A0A22132B6B500DDD57D /* BrowserViewController.xib in Resources */,
+				D608A0C6213303E800DDD57D /* GifDetailViewController.xib in Resources */,
 				D608A0B92132D6FC00DDD57D /* GiphyIconCollectionViewCell.xib in Resources */,
 				D608A0952132A8DC00DDD57D /* LaunchScreen.storyboard in Resources */,
 				D608A0922132A8DC00DDD57D /* Assets.xcassets in Resources */,
@@ -214,6 +237,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D608A0CC21331BF400DDD57D /* Run Script - Carthage copy libraries */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Gifu.framework",
+			);
+			name = "Run Script - Carthage copy libraries";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Gifu.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D608A0832132A8DA00DDD57D /* Sources */ = {
@@ -225,6 +267,7 @@
 				D608A0B02132BA2500DDD57D /* MetaObject.swift in Sources */,
 				D608A0A52132B70400DDD57D /* GiphyDefs.swift in Sources */,
 				D608A0B42132D3F600DDD57D /* TrendingResponse.swift in Sources */,
+				D608A0C8213314A300DDD57D /* GifFileCache.swift in Sources */,
 				D608A0BB2132EBB600DDD57D /* ImageMemCache.swift in Sources */,
 				D608A08B2132A8DA00DDD57D /* AppDelegate.swift in Sources */,
 				D608A0B82132D6FC00DDD57D /* GiphyIconCollectionViewCell.swift in Sources */,
@@ -232,6 +275,7 @@
 				D608A0AA2132B9C600DDD57D /* GIFObject.swift in Sources */,
 				D608A0AC2132B9E000DDD57D /* ImagesObject.swift in Sources */,
 				D608A0AE2132BA1800DDD57D /* PaginationObject.swift in Sources */,
+				D608A0C5213303E800DDD57D /* GifDetailViewController.swift in Sources */,
 				D608A0A12132B6B500DDD57D /* BrowserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,7 +412,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = PB46A7HS64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = GiphyBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -376,6 +425,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ishev.GiphyBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "3d66fc7b-410b-4ea5-985d-b1d3ed67e486";
+				PROVISIONING_PROFILE_SPECIFIER = GeneralDevelopmentProfile;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -385,7 +436,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = GiphyBrowser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -393,6 +449,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ishev.GiphyBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

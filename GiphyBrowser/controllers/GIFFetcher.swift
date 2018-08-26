@@ -52,8 +52,11 @@ class GIFFetcher {
                 } catch let error {
                     print("Couldn't parse data: " + String.init(data: data, encoding: .utf8)! )
 
+                    var failedToParseError = MetaObject.createFailedToParse()
+                    failedToParseError.underlyingError = error
+
                     DispatchQueue.main.async {
-                        completion(nil, nil, MetaObject.createFailedToParse())
+                        completion(nil, nil, failedToParseError)
                     }
                 }
             } else {
@@ -73,5 +76,51 @@ class GIFFetcher {
         }
 
         return task
+    }
+
+
+    func downloadGif(_ gif : GIFObject, asMP4 : Bool , toFileURL fileURL : URL, completion: @escaping (Error?) -> Void ) -> URLSessionDownloadTask {
+
+        let remoteURL = asMP4 ? gif.images.originalMP4.url : gif.images.fixedWidthDownsampled.url
+
+        return self.downloadFile(downloadURL: remoteURL, toFileURL: fileURL, completion: completion)
+    }
+
+
+    func downloadFile(downloadURL : URL, toFileURL fileURL : URL, completion: @escaping (Error?) -> Void ) -> URLSessionDownloadTask {
+        let downloadTask = self.session.downloadTask(with: downloadURL, completionHandler: { (dURL, response, error) in
+
+            if  let dURL = dURL,
+                (200...299).contains((response as! HTTPURLResponse).statusCode),
+                error == nil
+            {
+                do {
+                    try? FileManager.default.removeItem(at: fileURL)
+                    try FileManager.default.copyItem(at: dURL, to: fileURL)
+
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                } catch let fileError {
+                    DispatchQueue.main.async {
+                        completion(fileError)
+                    }
+                }
+            }
+            else
+            {
+                var finalError : Error
+                if let sError = error {
+                    finalError = sError
+                } else {
+                    finalError = NSError.init(domain: "GIFFetcher", code: -2, userInfo: nil)
+                }
+                DispatchQueue.main.async {
+                    completion(finalError)
+                }
+            }
+        })
+
+        return downloadTask
     }
 }
